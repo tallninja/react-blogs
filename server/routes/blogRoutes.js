@@ -14,7 +14,7 @@ router.post("/blogs/new", async (req, res) => {
     _user: req.user._id,
     dateCreated: new Date(),
   }).save();
-  res.status(201).send(newBlog);
+  res.status(201).send({ success: "Blog created successfully !" });
 });
 
 // get a list of blogs
@@ -23,25 +23,31 @@ router.get("/blogs", async (req, res) => {
   res.send(userBlogs);
 });
 
+// get a single blog
+router.get("/blogs", async (req, res) => {
+  const blog = await Blog.findOne({ _id: req.query.id });
+  res.send(blog);
+});
+
 // delete a blog
 router.delete("/blogs", async (req, res) => {
-  const deletedBlog = await Blog.deleteOne({ _id: req.body.id });
+  const deletedBlog = await Blog.deleteOne({ _id: req.query.id }).exec();
   res.send({ success: "Blog deleted successfully !" });
 });
 
 // edit a blog
 router.patch("/blogs", async (req, res) => {
-  const { id, title, content } = req.body;
+  const { title, content } = req.body;
   const updatedBlog = await Blog.updateOne(
     {
-      _id: id,
+      _id: req.query.id,
     },
     {
       title: title,
       content: content,
     }
   ).exec();
-  res.send(updatedBlog);
+  res.send({ message: "Blog edited successfully !" });
 });
 
 module.exports = router;
