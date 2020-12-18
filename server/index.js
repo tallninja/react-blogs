@@ -5,6 +5,8 @@ const config = require("config");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 
+const requireLogin = require("./middlewares/requireLogin");
+
 // mongo
 const mongoURI = config.get("mongo.URI");
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -35,3 +37,7 @@ app.use("/auth", authRoutes);
 app.listen(5000, () => {
   console.log("Server started successfully !");
 });
+
+// api
+const blogRoutes = require("./routes/blogRoutes");
+app.use("/api", requireLogin, blogRoutes);
