@@ -31,20 +31,20 @@ export const fetchBlogs = () => async (dispatch) => {
   const res = await axios.get("/api/blogs");
   dispatch({
     type: FETCH_BLOGS,
-    payload: res.data,
+    payload: res.data || "",
   });
 };
 
 // fetch a single blog
 export const fetchBlog = (id) => async (dispatch) => {
-  const res = await axios.get("/api/blogs", {
+  const res = await axios.get("/api/blogs/item", {
     params: {
       id: id,
     },
   });
   dispatch({
     type: FETCH_BLOG,
-    payload: res.data,
+    payload: res.data || "",
   });
 };
 

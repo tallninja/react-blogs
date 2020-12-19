@@ -6,14 +6,17 @@ import {
   DELETE_BLOG,
 } from "../actions/types";
 
-const blogsReducer = (state = {}, action) => {
+const blogsReducer = (
+  state = { blogsList: null, blog: null, message: null },
+  action
+) => {
   switch (action.type) {
     case CREATE_BLOG:
       return { ...state, message: action.payload };
     case FETCH_BLOGS:
-      return action.payload;
+      return { ...state, blogsList: action.payload || false };
     case FETCH_BLOG:
-      return action.payload;
+      return { ...state, blog: action.payload || false };
     case EDIT_BLOG:
       return { ...state, message: action.payload };
     case DELETE_BLOG:
