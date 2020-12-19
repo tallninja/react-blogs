@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 
 import BlogField from "./BlogField";
 import TinyEditor from "./TinyEditor";
+import formValidator from "../../utils/formValidator";
 
 class BlogForm extends Component {
   render() {
     return (
       <form
-        className="ui form"
+        className="ui error form"
         onSubmit={this.props.handleSubmit(this.props.onSubmit)}
       >
         <Field
@@ -19,7 +20,12 @@ class BlogForm extends Component {
           placeholder="Blog Title"
           component={BlogField}
         />
-        <Field type="text" name="content" component={TinyEditor} />
+        <Field
+          type="text"
+          name="content"
+          label="Blog Content"
+          component={TinyEditor}
+        />
         <div style={{ marginTop: "15px" }}>
           <button className="ui right floated teal button">
             Next
@@ -37,5 +43,6 @@ class BlogForm extends Component {
 
 export default reduxForm({
   form: "blogForm",
+  validate: formValidator,
   destroyOnUnmount: false,
 })(BlogForm);

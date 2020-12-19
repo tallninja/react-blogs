@@ -1,10 +1,22 @@
 import React, { Component } from "react";
 
 class BlogField extends Component {
+  renderErrorMessage(meta) {
+    if (meta.touched && meta.error) {
+      return (
+        <div className="ui error message">
+          <p>{meta.error}</p>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
-    const { label, type, name, placeholder, input } = this.props;
+    const { label, type, name, placeholder, input, meta } = this.props;
     return (
-      <div className="field">
+      <div className="required field">
         <label>{label}</label>
         <input
           type={type}
@@ -12,6 +24,7 @@ class BlogField extends Component {
           placeholder={placeholder}
           {...input}
         ></input>
+        {this.renderErrorMessage(meta)}
       </div>
     );
   }

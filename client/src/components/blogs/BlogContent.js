@@ -48,14 +48,14 @@ class BlogContent extends Component {
               <div className="ui attached segment">
                 <h2>{title}</h2>
                 <div
-                  className="ui segment"
+                  className="ui left aligned piled segment"
                   dangerouslySetInnerHTML={{ __html: content }}
                 ></div>
               </div>
             </React.Fragment>
           );
         } else {
-          return <div>Loading...</div>;
+          return null;
         }
     }
   }

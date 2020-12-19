@@ -1,4 +1,5 @@
 import _ from "lodash";
+import moment from "moment";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -22,7 +23,16 @@ class BlogList extends Component {
           <Link to={`/blogs/content/${blog._id}`} className="header">
             {blog.title}
           </Link>
-          <div className="description">Updated 10 mins ago</div>
+          <div className="description">
+            <div>
+              <strong>Posted</strong>:{" "}
+              {moment(new Date(blog.dateCreated)).fromNow()}
+            </div>
+            <div>
+              <strong>Date Posted</strong>:{" "}
+              {new Date(blog.dateCreated).toLocaleDateString()}
+            </div>
+          </div>
         </div>
       </div>
     );
