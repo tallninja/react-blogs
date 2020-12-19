@@ -36,7 +36,15 @@ class BlogContent extends Component {
   render() {
     switch (this.props.blog) {
       case null:
-        return <div>Loading...</div>;
+        return (
+          <div className="ui placeholder">
+            <div className="line"></div>
+            <div className="line"></div>
+            <div className="line"></div>
+            <div className="line"></div>
+            <div className="line"></div>
+          </div>
+        );
       case false:
         return <div>Blog not found...</div>;
       default:
