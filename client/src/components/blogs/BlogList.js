@@ -57,10 +57,10 @@ class BlogList extends Component {
             {this.renderBlogsList()}
           </div>
         </div>
-        <button className="fluid ui green button">
+        <Link to="/blogs/new" className="fluid ui green button">
           <i className="plus icon"></i>
           New Blog
-        </button>
+        </Link>
       </div>
     );
   }

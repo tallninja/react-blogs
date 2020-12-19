@@ -47,7 +47,10 @@ class BlogContent extends Component {
               {this.renderAuthButtons()}
               <div className="ui attached segment">
                 <h2>{title}</h2>
-                <div className="ui segment">{content}</div>
+                <div
+                  className="ui segment"
+                  dangerouslySetInnerHTML={{ __html: content }}
+                ></div>
               </div>
             </React.Fragment>
           );

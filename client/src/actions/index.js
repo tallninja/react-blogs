@@ -8,6 +8,8 @@ import {
   CREATE_BLOG,
 } from "./types";
 
+import history from "../history";
+
 // fetch user data
 export const fetchUser = () => async (dispatch) => {
   const res = await axios.get("/auth/current_user");
@@ -18,8 +20,9 @@ export const fetchUser = () => async (dispatch) => {
 };
 
 // create a blog
-export const createBlog = (data) => async (dispatch) => {
-  const res = await axios.post("/api/blogs", data);
+export const createBlog = (blog) => async (dispatch) => {
+  const res = await axios.post("/api/blogs", blog);
+  history.push("/dashboard");
   dispatch({
     type: CREATE_BLOG,
     payload: res.data,
