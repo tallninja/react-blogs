@@ -18,14 +18,14 @@ router.get("/github/callback", passport.authenticate("github"), (req, res) => {
 });
 
 // get current user
-router.get("/current_user", requireLogin, (req, res) => {
+router.get("/current_user", (req, res) => {
   res.send(req.user);
 });
 
 // logout user
 router.get("/logout", (req, res) => {
   req.logout();
-  res.send(req.user);
+  res.redirect("/");
 });
 
 module.exports = router;

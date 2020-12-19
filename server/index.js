@@ -26,8 +26,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // root route
-app.get("/", (req, res) => {
-  res.send({ success: "welcome to my blog server" });
+app.get("/", async (req, res) => {
+  res.send("welcome");
 });
 
 // auth
@@ -40,4 +40,5 @@ app.listen(5000, () => {
 
 // api
 const blogRoutes = require("./routes/blogRoutes");
+const { all } = require("./routes/authRoutes");
 app.use("/api", requireLogin, blogRoutes);

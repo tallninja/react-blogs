@@ -6,7 +6,7 @@ const Blog = mongoose.model("blogs");
 const router = express.Router();
 
 // create a blog
-router.post("/blogs/new", async (req, res) => {
+router.post("/blogs", async (req, res) => {
   const { title, content } = req.body;
   const newBlog = await new Blog({
     title: title,
@@ -20,18 +20,25 @@ router.post("/blogs/new", async (req, res) => {
 // get a list of blogs
 router.get("/blogs", async (req, res) => {
   const userBlogs = await Blog.find({ _user: req.user.id });
-  res.send(userBlogs);
+  if (userBlogs.length > 0) {
+    res.send(userBlogs.reverse());
+  } else {
+    res.send(null);
+  }
 });
 
 // get a single blog
-router.get("/blogs", async (req, res) => {
+router.get("/blogs/item", async (req, res) => {
   const blog = await Blog.findOne({ _id: req.query.id });
   res.send(blog);
 });
 
 // delete a blog
 router.delete("/blogs", async (req, res) => {
-  const deletedBlog = await Blog.deleteOne({ _id: req.query.id }).exec();
+  const deletedBlog = await Blog.deleteOne({
+    _id: req.query.id,
+    _user: req.user.id,
+  }).exec();
   res.send({ success: "Blog deleted successfully !" });
 });
 
@@ -41,6 +48,7 @@ router.patch("/blogs", async (req, res) => {
   const updatedBlog = await Blog.updateOne(
     {
       _id: req.query.id,
+      _user: req.user.id,
     },
     {
       title: title,
