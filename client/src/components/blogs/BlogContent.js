@@ -14,10 +14,13 @@ class BlogContent extends Component {
       if (this.props.auth._id === this.props.blog._user) {
         return (
           <div className="ui two top attached buttons">
-            <div className="ui teal button">
+            <Link
+              to={`/blogs/edit/${this.props.blog._id}`}
+              className="ui teal button"
+            >
               <i className="edit icon"></i>
               Edit
-            </div>
+            </Link>
             <Link
               to={`/blogs/delete/${this.props.blog._id}`}
               className="ui orange button"

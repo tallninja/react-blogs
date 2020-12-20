@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import * as actions from "../../actions";
 
 import BlogForm from "./BlogForm";
 import BlogReview from "./BlogReview";
@@ -26,10 +29,18 @@ class BlogCreate extends Component {
       return (
         <BlogReview
           handleBack={() => this.setState({ showReviewForm: false })}
+          form={this.props.form}
+          action={() => this.props.createBlog(this.props.form.blogForm.values)}
+          icon="paper plane icon"
+          buttonText="Create"
         />
       );
     }
   }
 }
 
-export default BlogCreate;
+const mapStateToProps = ({ form }) => {
+  return { form };
+};
+
+export default connect(mapStateToProps, actions)(BlogCreate);

@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-
-import * as actions from "../../actions";
 
 class BlogReview extends Component {
   handleBack = () => {
@@ -9,7 +6,7 @@ class BlogReview extends Component {
   };
 
   handleReviewSubmit = () => {
-    this.props.createBlog(this.props.form.blogForm.values);
+    this.props.action();
   };
 
   render() {
@@ -26,13 +23,13 @@ class BlogReview extends Component {
             dangerouslySetInnerHTML={{ __html: content }}
           ></div>
         </div>
-        <div style={{ marginTop: "15px" }}>
+        <div style={{ margin: "20px" }}>
           <button
             className="ui right floated green button"
             onClick={this.handleReviewSubmit}
           >
-            <i className="paper plane icon"></i>
-            Create
+            <i className={this.props.icon}></i>
+            {this.props.buttonText}
           </button>
           <button
             className="ui left floated teal button"
@@ -47,8 +44,4 @@ class BlogReview extends Component {
   }
 }
 
-const mapStateToProps = ({ form }) => {
-  return { form };
-};
-
-export default connect(mapStateToProps, actions)(BlogReview);
+export default BlogReview;

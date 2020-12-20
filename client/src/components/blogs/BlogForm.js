@@ -26,7 +26,7 @@ class BlogForm extends Component {
           label="Blog Content"
           component={TinyEditor}
         />
-        <div style={{ marginTop: "15px" }}>
+        <div style={{ margin: "20px" }}>
           <button className="ui right floated teal button">
             Next
             <i className="angle right icon"></i>

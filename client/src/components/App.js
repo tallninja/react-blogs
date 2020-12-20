@@ -8,11 +8,11 @@ import Dashboard from "./Dashboard";
 import BlogCreate from "./blogs/BlogCreate";
 import BlogContent from "./blogs/BlogContent";
 import BlogDelete from "./blogs/BlogDelete";
+import BlogEdit from "./blogs/BlogEdit";
 
 import history from "../history";
 
 const Landing = () => <div>Landing</div>;
-const EditBlog = () => <div>EditBlog</div>;
 
 class App extends Component {
   componentDidMount = () => {
@@ -27,7 +27,7 @@ class App extends Component {
           <Route exact={true} path="/" component={Landing} />
           <Route exact={true} path="/dashboard" component={Dashboard} />
           <Route exact={true} path="/blogs/new" component={BlogCreate} />
-          <Route exact={true} path="/blogs/edit/:id" component={EditBlog} />
+          <Route exact={true} path="/blogs/edit/:id" component={BlogEdit} />
           <Route exact={true} path="/blogs/delete/:id" component={BlogDelete} />
           <Route
             exact={true}

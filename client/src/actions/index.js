@@ -53,11 +53,12 @@ export const fetchBlog = (id) => async (dispatch) => {
 
 // edit a blog
 export const editBlog = (id, data) => async (dispatch) => {
-  const res = await axios.patch("/api/blog", data, {
+  const res = await axios.patch("/api/blogs", data, {
     params: {
       id: id,
     },
   });
+  history.push(`/blogs/content/${id}`);
   dispatch({
     type: EDIT_BLOG,
     payload: res.data,
