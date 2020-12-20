@@ -31,7 +31,7 @@ class Navbar extends Component {
 
   render() {
     return (
-      <div className="ui secondary pointing menu">
+      <div className="ui top secondary pointing menu">
         <Link to={this.props.auth ? "/dashboard" : "/"} className="active item">
           Home
         </Link>

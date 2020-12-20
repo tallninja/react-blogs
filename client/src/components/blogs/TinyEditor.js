@@ -11,7 +11,7 @@ class TinyEditor extends Component {
           onBlur={(event, value) => {
             this.props.input.onChange(event.target.getContent());
           }}
-          apiKey="h70cn69i7k2gnlh94iciz7hu4bmy6ixxznkxcp4awj4g9ziz"
+          apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
           init={{
             height: 300,
             textareaName: this.props.name,
