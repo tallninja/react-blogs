@@ -7,13 +7,25 @@ const router = express.Router();
 
 require("../models/User");
 
-// login
-require("../services/passport");
+// LOGIN
+
+// github
+require("../services/passport").github();
 router.get(
   "/github",
   passport.authenticate("github", { scope: ["read:user"] })
 );
 router.get("/github/callback", passport.authenticate("github"), (req, res) => {
+  res.redirect("/");
+});
+
+// google
+require("../services/passport").google();
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+router.get("/google/callback", passport.authenticate("google"), (req, res) => {
   res.redirect("/");
 });
 

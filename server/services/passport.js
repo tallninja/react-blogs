@@ -1,26 +1,42 @@
 const passport = require("passport");
-const GithubStrategy = require("passport-github2");
 const config = require("config");
 const mongoose = require("mongoose");
+const GithubStrategy = require("passport-github2");
+const GoogleStrategy = require("passport-google-oauth20");
 
-const saveUser = require("../controllers/saveUser");
-
-const clientID = config.get("github.clientID");
-const clientSecret = config.get("github.clientSecret");
+const saveUser = require("../controllers/auth/saveUser");
 
 const User = mongoose.model("users");
 
 require("../serializers/user")(User, passport);
 
-passport.use(
-  new GithubStrategy(
-    {
-      clientID: clientID,
-      clientSecret: clientSecret,
-      callbackURL: "/auth/github/callback",
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      saveUser(User, profile, done);
-    }
-  )
-);
+const github = () =>
+  passport.use(
+    new GithubStrategy(
+      {
+        clientID: config.get("github.clientID"),
+        clientSecret: config.get("github.clientSecret"),
+        callbackURL: "/auth/github/callback",
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        saveUser(User, profile, done);
+      }
+    )
+  );
+
+const google = () =>
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: config.get("google.clientID"),
+        clientSecret: config.get("google.clientSecret"),
+        callbackURL: "/auth/google/callback",
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        saveUser(User, profile, done);
+        // console.log(profile);
+      }
+    )
+  );
+
+module.exports = { github, google };
