@@ -33,6 +33,8 @@ class BlogContent extends Component {
       } else {
         return null;
       }
+    } else {
+      return null;
     }
   };
 

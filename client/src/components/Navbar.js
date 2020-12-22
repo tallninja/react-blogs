@@ -12,12 +12,20 @@ class Navbar extends Component {
         );
       case false:
         return (
-          <a className="ui item" href="/auth/github">
-            <button className="ui black button">
-              <i className="github icon"></i>
-              Login
-            </button>
-          </a>
+          <React.Fragment>
+            <a className="ui item" href="/auth/github">
+              <button className="ui black button">
+                <i className="github icon"></i>
+                Login
+              </button>
+            </a>
+            <a className="ui item" href="/auth/google">
+              <button className="ui google plus button">
+                <i className="google icon"></i>
+                Login
+              </button>
+            </a>
+          </React.Fragment>
         );
       default:
         return (

@@ -4,6 +4,7 @@ import {
   FETCH_BLOG,
   EDIT_BLOG,
   DELETE_BLOG,
+  FETCH_ALL_BLOGS,
 } from "../actions/types";
 
 const blogsReducer = (
@@ -11,6 +12,8 @@ const blogsReducer = (
   action
 ) => {
   switch (action.type) {
+    case FETCH_ALL_BLOGS:
+      return { ...state, blogsList: action.payload || false };
     case CREATE_BLOG:
       return { ...state, message: action.payload };
     case FETCH_BLOGS:

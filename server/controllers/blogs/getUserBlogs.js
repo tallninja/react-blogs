@@ -5,8 +5,10 @@ module.exports = async (req, res, Blog) => {
     } else {
       if (blogs.length > 0) {
         res.status(200).send(blogs);
+        return;
       } else {
         res.send(null);
+        return;
       }
     }
   });

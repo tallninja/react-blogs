@@ -9,10 +9,9 @@ import BlogCreate from "./blogs/BlogCreate";
 import BlogContent from "./blogs/BlogContent";
 import BlogDelete from "./blogs/BlogDelete";
 import BlogEdit from "./blogs/BlogEdit";
+import Landing from "./Landing";
 
 import history from "../history";
-
-const Landing = () => <div>Landing</div>;
 
 class App extends Component {
   componentDidMount = () => {

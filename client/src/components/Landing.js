@@ -1,14 +1,14 @@
 import _ from "lodash";
 import moment from "moment";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import * as actions from "../../actions";
+import * as actions from "../actions";
 
-class BlogList extends Component {
+class Landing extends Component {
   componentDidMount = () => {
-    this.props.fetchBlogs();
+    this.props.fetchAllBlogs();
   };
 
   renderBlogItem = (blog) => {
@@ -24,11 +24,11 @@ class BlogList extends Component {
               <strong>Author:</strong> {blog.author}
             </div>
             <div>
-              <strong>Time: </strong>{" "}
+              <strong>Time:</strong>{" "}
               {moment(new Date(blog.dateCreated)).fromNow()}
             </div>
             <div>
-              <strong>Date: </strong>{" "}
+              <strong>Date</strong>{" "}
               {new Date(blog.dateCreated).toLocaleDateString()}
             </div>
           </div>
@@ -37,8 +37,8 @@ class BlogList extends Component {
     );
   };
 
-  renderBlogsList = () => {
-    switch (this.props.userBlogs) {
+  renderBlogs = () => {
+    switch (this.props.blogs.blogsList) {
       case false:
         return <h4>No blogs yet...</h4>;
       case null:
@@ -51,7 +51,7 @@ class BlogList extends Component {
           </div>
         );
       default:
-        return _.map(this.props.userBlogs, (blog) => {
+        return _.map(this.props.blogs.blogsList, (blog) => {
           return this.renderBlogItem(blog);
         });
     }
@@ -60,23 +60,17 @@ class BlogList extends Component {
   render() {
     return (
       <div>
-        <h3>My Blogs</h3>
+        <h3>Blogs</h3>
         <div className="ui segment">
-          <div className="ui relaxed divided list">
-            {this.renderBlogsList()}
-          </div>
+          <div className="ui relaxed divided list">{this.renderBlogs()}</div>
         </div>
-        <Link to="/blogs/new" className="fluid ui green button">
-          <i className="plus icon"></i>
-          New Blog
-        </Link>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ auth, blogs }) => {
-  return { user: auth, userBlogs: blogs.blogsList };
+const mapStateToProps = ({ blogs }) => {
+  return { blogs };
 };
 
-export default connect(mapStateToProps, actions)(BlogList);
+export default connect(mapStateToProps, actions)(Landing);

@@ -11,8 +11,10 @@ module.exports = async (req, res, Blog) => {
   ).exec((err) => {
     if (err) {
       res.status(500).send({ error: "Failed to edit blog !" });
+      return;
     } else {
       res.status(200).send({ success: "Blog edited successfully !" });
+      return;
     }
   });
 };

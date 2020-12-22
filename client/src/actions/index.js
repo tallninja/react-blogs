@@ -6,6 +6,7 @@ import {
   DELETE_BLOG,
   EDIT_BLOG,
   CREATE_BLOG,
+  FETCH_ALL_BLOGS,
 } from "./types";
 
 import history from "../history";
@@ -15,6 +16,15 @@ export const fetchUser = () => async (dispatch) => {
   const res = await axios.get("/auth/current_user");
   dispatch({
     type: FETCH_USER,
+    payload: res.data,
+  });
+};
+
+// fetch all blogs
+export const fetchAllBlogs = () => async (dispatch) => {
+  const res = await axios.get("/api/blogs/all");
+  dispatch({
+    type: FETCH_ALL_BLOGS,
     payload: res.data,
   });
 };

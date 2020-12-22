@@ -5,8 +5,6 @@ const config = require("config");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 
-const requireLogin = require("./middlewares/requireLogin");
-
 // mongo
 const mongoURI = config.get("mongo.URI");
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -25,20 +23,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// root route
-app.get("/", async (req, res) => {
-  res.send("welcome");
-});
-
 // auth
 const authRoutes = require("./routes/authRoutes");
 app.use("/auth", authRoutes);
 
+// api
+const blogRoutes = require("./routes/blogRoutes");
+app.use("/api", blogRoutes);
+
 app.listen(5000, () => {
   console.log("Server started successfully !");
 });
-
-// api
-const blogRoutes = require("./routes/blogRoutes");
-const { all } = require("./routes/authRoutes");
-app.use("/api", requireLogin, blogRoutes);
