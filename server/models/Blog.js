@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const { Schema } = mongoose;
 
@@ -10,5 +11,7 @@ const BlogSchema = new Schema({
   avatarURL: String,
   dateCreated: Date,
 });
+
+BlogSchema.plugin(mongoosePaginate);
 
 mongoose.model("blogs", BlogSchema);

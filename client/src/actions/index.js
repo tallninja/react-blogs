@@ -21,8 +21,12 @@ export const fetchUser = () => async (dispatch) => {
 };
 
 // fetch all blogs
-export const fetchAllBlogs = () => async (dispatch) => {
-  const res = await axios.get("/api/blogs/all");
+export const fetchAllBlogs = (page) => async (dispatch) => {
+  const res = await axios.get("/api/blogs/all", {
+    params: {
+      page: page,
+    },
+  });
   dispatch({
     type: FETCH_ALL_BLOGS,
     payload: res.data,

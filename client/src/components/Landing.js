@@ -7,8 +7,60 @@ import { Link } from "react-router-dom";
 import * as actions from "../actions";
 
 class Landing extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { page: 1 };
+  }
+
   componentDidMount = () => {
-    this.props.fetchAllBlogs();
+    this.props.fetchAllBlogs(this.state.page);
+  };
+
+  renderPaginationItem = (totalDocs, page) => {
+    let pageItems = [];
+    for (let i = 1; i <= totalDocs; i++) {
+      pageItems.push(
+        <a
+          className={`${page == i ? "active" : ""} item`}
+          onClick={() => {
+            this.setState({ page: i });
+          }}
+          key={i}
+        >
+          {i}
+        </a>
+      );
+    }
+    return pageItems;
+  };
+
+  renderPagination = () => {
+    switch (this.props.blogs.blogsList) {
+      case false:
+        return null;
+      case null:
+        return <div>No pagination</div>;
+      default:
+        const {
+          totalDocs,
+          hasPrevPage,
+          hasNextPage,
+          page,
+          prevPage,
+          nextPage,
+        } = this.props.blogs.blogsList;
+        if (prevPage || nextPage) {
+          return (
+            <div className="ui pagination menu">
+              <a className={`${hasPrevPage ? "" : "disabled"} item`}>prev</a>
+              {this.renderPaginationItem(totalDocs, page)}
+              <a className={`${hasNextPage ? "" : "disabled"} item`}>Next</a>
+            </div>
+          );
+        } else {
+          return null;
+        }
+    }
   };
 
   renderBlogItem = (blog) => {
@@ -51,7 +103,7 @@ class Landing extends Component {
           </div>
         );
       default:
-        return _.map(this.props.blogs.blogsList, (blog) => {
+        return _.map(this.props.blogs.blogsList.docs.reverse(), (blog) => {
           return this.renderBlogItem(blog);
         });
     }
@@ -63,6 +115,7 @@ class Landing extends Component {
         <h3>Blogs</h3>
         <div className="ui segment">
           <div className="ui relaxed divided list">{this.renderBlogs()}</div>
+          {this.renderPagination()}
         </div>
       </div>
     );
